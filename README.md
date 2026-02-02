@@ -34,7 +34,7 @@ Kevin Jilwan: Software Engineering student with experience in Java, Python, C, a
 Mohammed Hussain: Software Engineering student with experience in
 Daniel Hanna: Software Engineering student with experience in
 Ahmad Awada: Computer Engineering student with experience in
-Jordano Preteroti: Computer Engineering student with experience in
+Jordano Preteroti: Computer Engineering student with experience in C, C#, C++, Java, Oracle SQL, and Python.
 Jacques Ivan Cacatian-Martinez: Computer Engineering student with experience in
 
 ## Technologies
