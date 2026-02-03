@@ -44,3 +44,8 @@ Jordano Preteroti: Computer Engineering student with experience in C, C++, C#, S
 Jacques Ivan Cacatian-Martinez: Computer Engineering student with experience in C++, Java, and Full Stack Development (React, Angular, Node, Spring Boot) 
 
 ## Technologies
+
+Next.js
+Supabase
+Git
+
