@@ -53,20 +53,9 @@ function GetStartedButton() {
   );
 }
 
-function StartForFreeButton() {
-  return (
-  <Link href="/auth/sign-up" className="top-[60%] left-[43%] -translate-x-1/2 -translate-y-1/2 absolute 
-  text-sm font-medium px-4 py-1.5 rounded-full
-  text-white bg-[#e0d5c5]">
-
-  Start For Free
-</Link>
-  );
-}
-
 function LoginButton() {
   return (
-  <Link href="/auth/login" className="top-[60%] left-[53%] -translate-x-1/2 -translate-y-1/2 absolute 
+  <Link href="/auth/login" className="top-[55%] left-[48%] -translate-x-1/2 -translate-y-1/2 absolute 
   text-sm font-medium px-4 py-1.5 rounded-full
   text-white bg-[#e0d5c5]">
   Login
@@ -85,7 +74,6 @@ export default function HomePage() {
 <SubWelcomeText />
 
 <GetStartedButton />
-<StartForFreeButton />
 <LoginButton />
 
       </header>
