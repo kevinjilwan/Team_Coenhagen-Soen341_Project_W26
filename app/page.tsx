@@ -40,7 +40,7 @@ function SubWelcomeText(){
 
 function GetStartedButton() {
   return (
-  <Link href="/auth/sign-up" className=" text-sm font-medium px-4 py-1.5 rounded-full
+  <Link href="/auth/sign-up" className=" text-xl font-medium px-4 py-1.5 rounded-full
     text-white bg-[#e0d5c5]">
     Get started
   </Link>
