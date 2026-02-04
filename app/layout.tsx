@@ -3,6 +3,8 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import SidePanel from "@/components/ui/side-panel";
+import SiteHeader from "@/components/ui/site-Header";
+
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -34,9 +36,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen flex bg-gradient-to-b from-stone-200 to-amber-100">
+          <div className="min-h-screen bg-gradient-to-b from-stone-200 to-amber-100">
+            <SiteHeader />
+
+          <div className="flex flex-1">
             <SidePanel />
             <main className="flex-1 p-8">{children}</main>
+          </div>
           </div>
         </ThemeProvider>
       </body>

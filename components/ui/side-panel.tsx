@@ -11,7 +11,6 @@ export default function SidePanel() {
   return (
     <aside className={`${handwriting.className} w-[360px] shrink-0 border-r border-stone-300 px-4 py-6`}>
         <div className="mb-8 flex items-center gap-2">
-        <span className="text-3xl font-semibold text-stone-900">Meal Major</span>
         </div>
 
         <nav className="space-y-8 text-3xl text-stone-950">
