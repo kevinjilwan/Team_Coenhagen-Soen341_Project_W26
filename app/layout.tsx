@@ -36,12 +36,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen bg-gradient-to-b from-stone-200 to-amber-100">
+          <div className="min-h-screen bg-gradient-to-b from-stone-200 to-amber-100 flex flex-col">
             <SiteHeader />
 
-          <div className="flex flex-1">
+          <div className="flex flex-1 items-stretch">
             <SidePanel />
-            <main className="flex-1 p-8">{children}</main>
+            <main className="flex-1">{children}</main>
           </div>
           </div>
         </ThemeProvider>
