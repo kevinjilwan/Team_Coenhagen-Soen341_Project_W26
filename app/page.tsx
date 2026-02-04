@@ -1,24 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Reenie_Beanie } from "next/font/google";
 
 const font = Reenie_Beanie({ subsets: ["latin"], weight: "400" });
-
-function Logo() {
-  return(
-  <Link href="/">
-    <Image src="/logo.png" alt="Meal Major Logo" width={200} height={200} />
-  </Link>
-  );
-}
-
-function HeaderText(){
-  return (
-    <Link href="/" className={`text-8xl font-semibold text-center italic ${font.className} text-gray-700`} >
-      Meal Major
-    </Link>
-  );
-}
 
 
 function WelcomeText(){
@@ -38,14 +21,6 @@ function SubWelcomeText(){
   );
 }
 
-function GetStartedButton() {
-  return (
-  <Link href="/auth/sign-up" className=" text-sm font-medium px-4 py-1.5 rounded-full
-    text-white bg-[#e0d5c5]">
-    Get started
-  </Link>
-  );
-}
 
 function LoginButton() {
   return (
@@ -58,32 +33,11 @@ function LoginButton() {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-stone-200 to-amber-100 flex flex-col">
-      
-      <header className="grid grid-cols-3 items-center px-6 py-0 border-b border-stone-300">
-        <div className="justify-self-start px-40">
-          <Logo />
-        </div>
-
-        <div className="justify-self-center text-center">
-          <HeaderText />
-        </div>
-
-        <div className="justify-self-end px-40">
-          <GetStartedButton />
-        </div>
-
-        <hr className="border-stone-300" />
-
-      </header>
-
       <section className="grid place-items-center text-center gap-10 mt-12">
         <WelcomeText />
         <SubWelcomeText />
         <LoginButton />
       </section>
-
-    </main>
   );
 }
 
