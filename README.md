@@ -27,25 +27,25 @@ where users can assign recipes to specific days and meal types (breakfast, lunch
 
 ## Team Member Roles
 
-Kevin Jilwan: Keep ReadMe updated, develop preference page, and setup database
-Mohammed Hussain: Maintain user story descriptions, and Sprint planning
-Daniel Hanna: Develop preference page, and setup database
-Ahmad Awada: Develop the sidepanel on the webpage
-Jordano Preteroti: Develop the frontpage
+Kevin Jilwan: Keep ReadMe updated, develop preference page, and setup database <br>
+Mohammed Hussain: Maintain user story descriptions, and Sprint planning <br>
+Daniel Hanna: Develop preference page, and setup database <br>
+Ahmad Awada: Develop the sidepanel on the webpage <br>
+Jordano Preteroti: Develop the frontpage <br>
 Jacques Ivan Cacatian-Martinez: Setup the mockup webapp, maintain user story descriptions, and Sprint planning
 
 ## Team Member Backgrounds
 
-Kevin Jilwan: Software Engineering student with experience in Java, Python, C, and web development (HTML, CSS, JavaScript)
-Mohammed Hussain: Software Engineering student with experience in Java, Python, C, and web development (HTML, CSS, JavaScript)
-Daniel Hanna: Software Engineering student with experience in Java, HTML, CSS, JS, VBA Macros
-Ahmad Awada: Computer Engineering student with experience in C++, Java, Python, VHDL and mathlab
-Jordano Preteroti: Computer Engineering student with experience in C, C++, C#, SQL Oracle, Java, Python,VHDL
-Jacques Ivan Cacatian-Martinez: Computer Engineering student with experience in C++, Java, and Full Stack Development (React, Angular, Node, Spring Boot) 
+Kevin Jilwan: Software Engineering student with experience in Java, Python, C, and web development (HTML, CSS, JavaScript) <br>
+Mohammed Hussain: Software Engineering student with experience in Java, Python, C, and web development (HTML, CSS, JavaScript) <br>
+Daniel Hanna: Software Engineering student with experience in Java, HTML, CSS, JS, VBA Macros <br>
+Ahmad Awada: Computer Engineering student with experience in C++, Java, Python, VHDL and mathlab <br>
+Jordano Preteroti: Computer Engineering student with experience in C, C++, C#, SQL Oracle, Java, Python,VHDL <br>
+Jacques Ivan Cacatian-Martinez: Computer Engineering student with experience in C++, Java, and Full Stack Development (React, Angular, Node, Spring Boot)  <br>
 
 ## Technologies
 
-Next.js
-Supabase
-Git
+* Next.js
+* Supabase
+* Git
 
