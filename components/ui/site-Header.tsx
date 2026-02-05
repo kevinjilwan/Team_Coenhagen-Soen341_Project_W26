@@ -33,7 +33,7 @@ export default function HomePage() {
   return (
       
       <header className="grid grid-cols-3 items-center px-6 py-0 border-b border-stone-300">
-        <div className="justify-self-start px-40">
+        <div className="justify-self-start px-10">
           <Logo />
         </div>
 
