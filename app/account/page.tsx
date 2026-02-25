@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import AccountClient from "./AccountClient";
 
 export default async function AccountPage() {
+  await connection();
   const supabase = await createClient();
 
   // logged-in user (Supabase Auth)

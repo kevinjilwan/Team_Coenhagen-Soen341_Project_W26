@@ -26,6 +26,9 @@ export default function SidePanel() {
         <Link href="/recipes/new" className="block rounded px-3 py-2 hover:bg-amber-200/60">
         Create Recipe
         </Link>
+        <Link href="/recipes" className="block rounded px-3 py-2 hover:bg-amber-200/60">
+        Recipes
+        </Link>
         </nav>
     </aside>
   );
