@@ -10,11 +10,20 @@ const handwriting = Reenie_Beanie({
 });
 
 
-export default function SidePanel() {
+export default function SidePanel({ onClose }: { onClose: () => void }) {
   const [recipesOpen, setRecipesOpen] = useState(false);
   return (
     <aside className={`${handwriting.className} w-[360px] shrink-0 border-r border-stone-300 px-4 py-6`}>
-        <div className="mb-8 flex items-center gap-2">
+        
+        <div className="mb-8 flex items-center justify-between gap-2">
+          <button
+          type="button"
+            onClick={onClose}
+            className="rounded-md border px-3 py-2 text-2xl hover:bg-amber-200/60"
+            aria-label="Close menu"
+            title="Close menu">
+            ✕
+          </button>
         </div>
 
         <nav className="space-y-8 text-3xl text-stone-950">
