@@ -1,19 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Reenie_Beanie } from "next/font/google";
+import { Indie_Flower  } from "next/font/google";
 import Link from "next/link";
 
-const handwriting = Reenie_Beanie({
-  subsets: ["latin"],
-  weight: "400",
-});
+const font = Indie_Flower({ subsets: ["latin"], weight: "400" });
 
 
 export default function SidePanel({ onClose }: { onClose: () => void }) {
   const [recipesOpen, setRecipesOpen] = useState(false);
   return (
-    <aside className={`${handwriting.className} w-[360px] shrink-0 border-r border-stone-300 px-4 py-6`}>
+    <aside className={`${font.className} w-[360px] shrink-0 border-r border-stone-300 px-4 py-6`}>
         
         <div className="mb-8 flex items-center justify-between gap-2">
           <button
