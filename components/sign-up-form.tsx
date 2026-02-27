@@ -44,16 +44,28 @@ export function SignUpForm({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/protected`,
+          emailRedirectTo: `${window.location.origin}/auth/login`,
         },
       });
       if (error) throw error;
-      router.push("/auth/sign-up-success");
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
-    } finally {
+      setEmail("");
+      setPassword("");
+      setRepeatPassword("");
       setIsLoading(false);
+      router.push("/auth/sign-up-success");
+    }  catch (error: unknown) {
+  if (error instanceof Error) {
+    if (error.message.toLowerCase().includes("rate limit")) {
+      setError("Too many sign-up attempts. Please wait a few minutes and try again.");
+    } else if (error.message.toLowerCase().includes("sending confirmation email")) {
+      setError("Account created! However we could not send a confirmation email. Please contact support.");
+    } else {
+      setError(error.message);
     }
+  } else {
+    setError("An error occurred");
+  }
+}
   };
 
   return (
