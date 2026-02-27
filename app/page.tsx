@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Reenie_Beanie } from "next/font/google";
+import { Marcellus  } from "next/font/google";
 
-const font = Reenie_Beanie({ subsets: ["latin"], weight: "400" });
+const font = Marcellus ({ subsets: ["latin"], weight: "400" });
 
 
 function WelcomeText(){
