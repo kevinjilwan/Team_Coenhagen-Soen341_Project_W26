@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Indie_Flower  } from "next/font/google";
+import { Reenie_Beanie } from "next/font/google";
 
-const font = Indie_Flower({ subsets: ["latin"], weight: "400" });
+const font = Reenie_Beanie({ subsets: ["latin"], weight: "400" });
 
 function Logo() {
   return(
@@ -14,7 +14,7 @@ function Logo() {
 
 function HeaderText(){
   return (
-    <Link href="/" className={`text-8xl font-semibold text-center italic ${font.className} text-gray-900`} >
+    <Link href="/" className={`text-8xl font-semibold text-center italic ${font.className} text-gray-700`} >
       Meal Major
     </Link>
   );
