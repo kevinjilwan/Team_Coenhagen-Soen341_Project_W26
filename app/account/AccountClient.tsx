@@ -120,8 +120,9 @@ export default function AccountClient(props: {
     <div className="mx-auto w-full max-w-3xl space-y-6 pt-5">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Account</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+            Account</h1>
+          <p className="text-sm text-muted-foreground text-gray-900">
             Manage your info and meal preferences.
           </p>
         </div>
