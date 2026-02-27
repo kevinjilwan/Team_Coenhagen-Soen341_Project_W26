@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Indie_Flower  } from "next/font/google";
+import { Marcellus  } from "next/font/google";
 
-const font = Indie_Flower({ subsets: ["latin"], weight: "400" });
+const font = Marcellus ({ subsets: ["latin"], weight: "400" });
 
 
 function WelcomeText(){

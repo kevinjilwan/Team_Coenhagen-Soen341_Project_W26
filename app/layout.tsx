@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Indie_Flower } from "next/font/google";
+import { Marcellus } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import SiteHeader from "@/components/ui/site-Header";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "A Meal Planner",
 };
 
-const font = Indie_Flower({ subsets: ["latin"], weight: "400" });
+const font = Marcellus({ subsets: ["latin"], weight: "400" });
 
 export default function RootLayout({
   children,

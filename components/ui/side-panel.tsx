@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Indie_Flower } from "next/font/google";
+import { Marcellus } from "next/font/google";
 import Link from "next/link";
 
-const font = Indie_Flower({ subsets: ["latin"], weight: "400" });
+const font = Marcellus ({ subsets: ["latin"], weight: "400" });
 
 export default function SidePanel({ onClose }: { onClose: () => void }) {
   const [recipesOpen, setRecipesOpen] = useState(false);
