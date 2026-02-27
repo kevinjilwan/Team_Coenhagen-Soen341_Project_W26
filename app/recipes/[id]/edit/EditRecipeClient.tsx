@@ -153,6 +153,38 @@ export default function EditRecipeClient({ id }: { id: string }) {
 
   return (
     <div className="p-4 max-w-2xl">
+      {confirmOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setConfirmOpen(false)}
+          />
+          <div className="relative z-10 w-full max-w-sm rounded-lg border bg-white p-6 shadow-lg">
+            <h2 className="text-lg font-semibold text-gray-900">Delete recipe?</h2>
+            <p className="mt-2 text-sm text-gray-600">
+              "<span className="font-medium font-bold">{title || "This recipe"}"</span> will be
+              permanently deleted. Are you sure you want to do this?
+            </p>
+            <div className="mt-5 flex justify-end gap-3">
+              <button
+                type="button"
+                className="rounded border px-4 py-2 text-sm text-gray-900 hover:bg-gray-50"
+                onClick={() => setConfirmOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700 disabled:opacity-50"
+                onClick={onDeleteConfirmed}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <h1 className="text-2xl font-bold mb-4">Edit Recipe</h1>
 
       {error && (
@@ -251,18 +283,9 @@ export default function EditRecipeClient({ id }: { id: string }) {
           <button
             className="rounded border px-4 py-2"
             type="button"
-            disabled={confirmOpen}
-            onClick={async () => {
-              setConfirmOpen(true);
-              const ok = window.confirm("Delete this recipe? This cannot be undone.");
-              if (!ok) {
-                setConfirmOpen(false);
-                return;
-              }
-              await onDeleteConfirmed();
-            }}
+            onClick={() => setConfirmOpen(true)}
           >
-            {confirmOpen ? "Deleting..." : "Delete recipe"}
+            Delete recipe
           </button>
         </div>
       </form>
