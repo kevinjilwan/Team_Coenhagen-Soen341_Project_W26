@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import SidePanel from "@/components/ui/side-panel";
 import SiteHeader from "@/components/ui/site-Header";
-
+import AppShell from "@/components/ui/AppShell";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -39,10 +38,10 @@ export default function RootLayout({
           <div className="min-h-screen bg-gradient-to-b from-stone-200 to-amber-100 flex flex-col">
             <SiteHeader />
 
-          <div className="flex flex-1 items-stretch">
-            <SidePanel />
-            <main className="flex-1">{children}</main>
-          </div>
+            <AppShell>
+              <main className="flex-1">{children}</main>
+            </AppShell>
+
           </div>
         </ThemeProvider>
       </body>
