@@ -6,7 +6,7 @@ const font = Marcellus ({ subsets: ["latin"], weight: "400" });
 
 function WelcomeText(){
   return (
-    <p className={`text-6xl text-gray-900 ${font.className}`}>
+    <p className={`text-6xl text-gray-700 ${font.className}`}>
       Welcome to Meal Major
     </p>
     );
@@ -14,7 +14,7 @@ function WelcomeText(){
 
 function SubWelcomeText(){
   return (
-  <p className={`text-2xl text-gray-900 ${font.className}`} >
+  <p className={`text-2xl text-gray-700 ${font.className}`} >
     MealMajor helps students plan meals and stay organized by managing recipes and creating a personalized <br />
     weekly meal plan. Easily track dietary preferences, assign meals to each day, and avoid repetition.
   </p>

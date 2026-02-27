@@ -2,12 +2,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import RecipeListClient, { RecipeListItem } from "./RecipeListClient";
 
-type RecipeListItem = {
-  id: string;
-  title: string | null;
-  description: string | null;
-};
+// keep type in sync with client component; we import it above
 
 export default async function RecipesPage() {
   await connection();
@@ -18,47 +15,28 @@ export default async function RecipesPage() {
 
   const { data: recipes, error } = await supabase
     .from("recipes")
-    .select("id, title, description")
+    .select("id, title, description, ingredients, dietary_tags")
     .eq("user_id", authData.user.id);
 
   if (error) {
-    return <div className="p-4 text-gray-900">Failed to load recipes: {error.message}</div>;
+    return <div className="p-4">Failed to load recipes: {error.message}</div>;
   }
 
   const items = (recipes ?? []) as RecipeListItem[];
 
   return (
-    <div className="p-4 max-w-3xl text-gray-900">
+    <div className="p-4 max-w-3xl">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">My Recipes</h1>
-        <Link href="/recipes/new" className="rounded border px-3 py-2 text-sm text-gray-900">
+        <h1 className="text-2xl font-bold">My Recipes</h1>
+        <Link href="/recipes/new" className="rounded border px-3 py-2 text-sm">
           New recipe
         </Link>
       </div>
 
       {items.length === 0 ? (
-        <div className="rounded border p-4 text-sm text-gray-900">No recipes yet.</div>
+        <div className="rounded border p-4 text-sm">No recipes yet.</div>
       ) : (
-        <ul className="space-y-3">
-          {items.map((recipe) => (
-            <li key={recipe.id} className="rounded border p-3">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h2 className="font-semibold text-gray-900">{recipe.title ?? "Untitled recipe"}</h2>
-                  {recipe.description ? (
-                    <p className="text-sm opacity-80 mt-1 text-gray-900">{recipe.description}</p>
-                  ) : null}
-                </div>
-                <Link
-                  href={`/recipes/${recipe.id}/edit`}
-                  className="rounded border px-3 py-1.5 text-sm text-gray-900"
-                >
-                  Edit
-                </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <RecipeListClient initialItems={items} />
       )}
     </div>
   );

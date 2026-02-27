@@ -55,7 +55,7 @@ describe("SignUpForm", () => {
         email: "test@example.com",
         password: "password123",
         options: {
-          emailRedirectTo: "http://localhost/protected",
+          emailRedirectTo: "http://localhost:3000/auth/login",
         },
       });
     });

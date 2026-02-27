@@ -79,50 +79,49 @@ export default function CreateRecipeClient() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl space-y-6 pt-6 text-gray-900">
+    <div className="mx-auto w-full max-w-3xl space-y-6 pt-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Create Recipe</h1>
-        <p className="text-sm text-muted-foreground text-gray-900">
+        <h1 className="text-3xl font-bold tracking-tight">Create Recipe</h1>
+        <p className="text-sm text-muted-foreground">
           Add ingredients, steps, time, cost, and difficulty.
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-white">Recipe details</CardTitle>
+          <CardTitle>Recipe details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-2">
-            <Label htmlFor="title" className="text-white">Title *</Label>
-            <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="text-white" />
+            <Label htmlFor="title">Title *</Label>
+            <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="description" className="text-white">Description</Label>
+            <Label htmlFor="description">Description</Label>
             <Input
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="text-white"
             />
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="grid gap-2">
-              <Label htmlFor="prep" className="text-white">Prep time (minutes)</Label>
-              <Input id="prep" value={prepTime} onChange={(e) => setPrepTime(e.target.value)} className="text-white" />
+              <Label htmlFor="prep">Prep time (minutes)</Label>
+              <Input id="prep" value={prepTime} onChange={(e) => setPrepTime(e.target.value)} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="cook" className="text-white">Cook time (minutes)</Label>
-              <Input id="cook" value={cookTime} onChange={(e) => setCookTime(e.target.value)} className="text-white" />
+              <Label htmlFor="cook">Cook time (minutes)</Label>
+              <Input id="cook" value={cookTime} onChange={(e) => setCookTime(e.target.value)} />
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="grid gap-2">
-              <Label className="text-white">Difficulty</Label>
+              <Label>Difficulty</Label>
               <select
-                className="h-10 rounded-md border bg-background px-3 text-sm text-white"
+                className="h-10 rounded-md border bg-background px-3 text-sm"
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value as Difficulty)}
               >
@@ -133,26 +132,26 @@ export default function CreateRecipeClient() {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="cost" className="text-white">Estimated cost</Label>
-              <Input id="cost" value={cost} onChange={(e) => setCost(e.target.value)} className="text-white" />
+              <Label htmlFor="cost">Estimated cost</Label>
+              <Input id="cost" value={cost} onChange={(e) => setCost(e.target.value)} />
             </div>
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="ingredients" className="text-white">Ingredients (one per line)</Label>
+            <Label htmlFor="ingredients">Ingredients (one per line)</Label>
             <textarea
               id="ingredients"
-              className="min-h-[120px] rounded-md border bg-background px-3 py-2 text-sm text-white"
+              className="min-h-[120px] rounded-md border bg-background px-3 py-2 text-sm"
               value={ingredientsText}
               onChange={(e) => setIngredientsText(e.target.value)}
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="steps" className="text-white">Steps (one per line)</Label>
+            <Label htmlFor="steps">Steps (one per line)</Label>
             <textarea
               id="steps"
-              className="min-h-[120px] rounded-md border bg-background px-3 py-2 text-sm text-white"
+              className="min-h-[120px] rounded-md border bg-background px-3 py-2 text-sm"
               value={stepsText}
               onChange={(e) => setStepsText(e.target.value)}
             />
@@ -162,7 +161,7 @@ export default function CreateRecipeClient() {
             <Button onClick={onCreate} disabled={saving}>
               {saving ? "Creating..." : "Create recipe"}
             </Button>
-            {msg && <p className="text-sm text-white">{msg}</p>}
+            {msg && <p className="text-sm">{msg}</p>}
           </div>
         </CardContent>
       </Card>
