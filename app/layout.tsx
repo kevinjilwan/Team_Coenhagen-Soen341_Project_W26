@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Indie_Flower } from "next/font/google";
+import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import SiteHeader from "@/components/ui/site-Header";
@@ -15,7 +15,11 @@ export const metadata: Metadata = {
   description: "A Meal Planner",
 };
 
-const font = Indie_Flower({ subsets: ["latin"], weight: "400" });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  display: "swap",
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -24,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${font.className} antialiased`}>
+      <body className={`${geistSans.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
