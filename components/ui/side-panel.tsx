@@ -1,35 +1,36 @@
 "use client";
 
 import { useState } from "react";
-import { Indie_Flower  } from "next/font/google";
+import { Indie_Flower } from "next/font/google";
 import Link from "next/link";
 
 const font = Indie_Flower({ subsets: ["latin"], weight: "400" });
 
-
 export default function SidePanel({ onClose }: { onClose: () => void }) {
   const [recipesOpen, setRecipesOpen] = useState(false);
+  
   return (
     <aside className={`${font.className} w-[360px] shrink-0 border-r border-stone-300 px-4 py-6`}>
-        
-        <div className="mb-8 flex items-center justify-between gap-2">
-          <button
+      <div className="mb-8 flex items-center justify-between gap-2">
+        <button
           type="button"
-            onClick={onClose}
-            className="rounded-md border px-3 py-2 text-2xl hover:bg-amber-200/60"
-            aria-label="Close menu"
-            title="Close menu">
-            ✕
-          </button>
-        </div>
+          onClick={onClose}
+          className="rounded-md border px-3 py-2 text-2xl hover:bg-amber-200/60"
+          aria-label="Close menu"
+          title="Close menu"
+        >
+          ✕
+        </button>
+      </div>
 
-        <nav className="space-y-8 text-3xl text-stone-950">
+      <nav className="space-y-8 text-3xl text-stone-950">
         <Link href="/" className="block rounded px-3 py-2 hover:bg-amber-200/60">
-            Home
+          Home
         </Link>
         <Link href="/account" className="block rounded px-3 py-2 hover:bg-amber-200/60">
-            Account
+          Account
         </Link>
+        
         <div className="space-y-2">
           <button
             type="button"
@@ -57,10 +58,11 @@ export default function SidePanel({ onClose }: { onClose: () => void }) {
             </div>
           )}
         </div>
+        
         <Link href="/settings" className="block rounded px-3 py-2 hover:bg-amber-200/60">
-            Settings
+          Settings
         </Link>
-        </nav>
+      </nav>
     </aside>
   );
 }
