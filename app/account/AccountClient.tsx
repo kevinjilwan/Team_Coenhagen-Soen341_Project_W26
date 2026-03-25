@@ -105,8 +105,9 @@ export default function AccountClient(props: {
 
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wide uppercase text-[#6b6450]">Full name</label>
+                <label htmlFor="full-name" className="text-xs font-medium tracking-wide uppercase text-[#6b6450]">Full name</label>
                 <input
+                  id="full-name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g., Kevin Jilwan"
@@ -204,7 +205,9 @@ export default function AccountClient(props: {
               {/* Lactose */}
               <div className="flex items-center gap-3">
                 <button
+                  id="lactose-intolerant"
                   onClick={() => setLactoseIntolerant(!lactoseIntolerant)}
+                  aria-pressed={lactoseIntolerant}
                   className={`w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${
                     lactoseIntolerant ? "bg-[#151e2d] border-[#151e2d]" : "border-[#9a7a2e]/40 bg-[#ede7d0]"
                   }`}
@@ -216,6 +219,8 @@ export default function AccountClient(props: {
                   )}
                 </button>
                 <label
+                  htmlFor="lactose-intolerant"
+                  aria-pressed={lactoseIntolerant}
                   onClick={() => setLactoseIntolerant(!lactoseIntolerant)}
                   className="text-sm text-[#151e2d] cursor-pointer font-light"
                 >
