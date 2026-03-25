@@ -150,9 +150,9 @@ export default function RecipeListClient({ initialItems }: { initialItems: Recip
           <p className="text-sm text-[#6b6450] font-light">Try adjusting your search or filters.</p>
         </div>
       ) : (
-        <ul className="divide-y divide-[#9a7a2e]/15">
-          {filtered.map((recipe) => (
-            <li key={recipe.id} className="py-6 flex items-start justify-between gap-6">
+        <ul className="flex flex-col gap-3">
+  {filtered.map((recipe) => (
+    <li key={recipe.id} className="py-6 px-6 flex items-start justify-between gap-6 border border-[#9a7a2e]/20 rounded-lg">
               <div className="flex-1 min-w-0">
                 <h2 className="font-serif text-xl text-[#151e2d] mb-1">
                   {recipe.title ?? "Untitled recipe"}
