@@ -93,18 +93,12 @@ export default async function RecipesPage() {
 </div>
 
         {/* Auth buttons */}
-        <div className="flex items-center gap-6">
+       <div className="flex items-center gap-6">
           <Link
-            href="/auth/login"
+            href="/auth/logout"
             className="text-base text-[#6b6450] hover:text-[#151e2d] transition-colors tracking-wide"
           >
-            Log in
-          </Link>
-          <Link
-            href="/auth/sign-up"
-            className="text-base font-medium px-4 py-2 rounded-md bg-[#151e2d] text-[#f2edda] hover:opacity-80 transition-opacity"
-          >
-            Get started
+            Log out
           </Link>
         </div>
       </nav>

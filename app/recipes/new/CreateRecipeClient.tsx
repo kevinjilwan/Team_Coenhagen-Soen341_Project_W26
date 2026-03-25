@@ -87,13 +87,13 @@ export default function CreateRecipeClient() {
           <Link href="/" className="text-base text-[#151e2d] hover:text-[#9a7a2e] transition-colors font-normal">
             Home
           </Link>
-          <Link href="/account" className="text-base text-[#9a7a2e] font-normal border-b border-[#9a7a2e]">
+          <Link href="/account" className="text-base text-[#151e2d] hover:text-[#9a7a2e] transition-colors font-normal">
             Account
           </Link>
           <div className="relative">
             <button
               onClick={() => setRecipesOpen(!recipesOpen)}
-              className="text-base text-[#151e2d] hover:text-[#9a7a2e] transition-colors font-normal flex items-center gap-1"
+              className="text-base text-[#9a7a2e] font-normal flex items-center gap-1 border-b border-[#9a7a2e]"
             >
               Recipes
               <svg className="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none">
