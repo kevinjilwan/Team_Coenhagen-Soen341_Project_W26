@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
+type Difficulty = "easy" | "medium" | "hard";
+
 type Recipe = {
   id: string;
   title?: string | null;
@@ -12,6 +14,7 @@ type Recipe = {
   preparation_steps?: string[] | string | null;
   cost?: number | null;
   dietary_tags?: string[] | null;
+  difficulty?: string | null;
 };
 
 function normalizeStringArray(v: unknown): string[] {
@@ -44,6 +47,7 @@ export default function EditRecipeClient({ id }: { id: string }) {
   const [stepsText, setStepsText] = useState("");
   const [prepTime, setPrepTime] = useState<string>("");
   const [cost, setCost] = useState<string>("");
+  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   const [tagsText, setTagsText] = useState("");
 
   useEffect(() => {
@@ -69,6 +73,9 @@ export default function EditRecipeClient({ id }: { id: string }) {
         setStepsText(stp.join("\n"));
         setPrepTime(r.preparation_time?.toString() ?? "");
         setCost(r.cost?.toString() ?? "");
+        if (r.difficulty === "easy" || r.difficulty === "medium" || r.difficulty === "hard") {
+          setDifficulty(r.difficulty);
+        }
         setTagsText((r.dietary_tags ?? []).join(", "));
       } catch (e: unknown) {
         setError(toErrorMessage(e, "Error"));
@@ -101,9 +108,10 @@ export default function EditRecipeClient({ id }: { id: string }) {
       preparation_steps: stepsArr,
       preparation_time: prepTime ? Number(prepTime) : null,
       cost: cost ? Number(cost) : null,
+      difficulty,
       dietary_tags: tagsArr,
     };
-  }, [title, description, ingredientsText, stepsText, prepTime, cost, tagsText]);
+  }, [title, description, ingredientsText, stepsText, prepTime, cost, difficulty, tagsText]);
 
   async function onSave(e: React.FormEvent) {
     e.preventDefault();
@@ -270,6 +278,28 @@ export default function EditRecipeClient({ id }: { id: string }) {
               onChange={(e) => setCost(e.target.value)}
               inputMode="decimal"
             />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#151e2d]">
+            Difficulty
+          </label>
+          <div className="flex gap-2">
+            {(["easy", "medium", "hard"] as Difficulty[]).map((opt) => (
+              <button
+                key={opt}
+                type="button"
+                onClick={() => setDifficulty(opt)}
+                className={`flex-1 text-xs px-3 py-2.5 rounded-md border transition-colors capitalize ${
+                  difficulty === opt
+                    ? "bg-[#151e2d] text-[#f2edda] border-[#151e2d]"
+                    : "bg-transparent text-[#6b6450] border-[#9a7a2e]/30 hover:border-[#9a7a2e]"
+                }`}
+              >
+                {opt}
+              </button>
+            ))}
           </div>
         </div>
 
