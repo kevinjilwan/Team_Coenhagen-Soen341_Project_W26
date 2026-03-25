@@ -37,7 +37,7 @@ describe("LoginForm", () => {
 
   it("shows error message when submitting empty form", async () => {
     render(<LoginForm />);
-    const submitButton = screen.getByRole("button", { name: /login/i });
+    const submitButton = screen.getByRole("button", { name: /log in/i });
     await userEvent.click(submitButton);
     // HTML5 validation prevents submit - form has required fields
     expect(mockSignIn).not.toHaveBeenCalled();
@@ -48,7 +48,7 @@ describe("LoginForm", () => {
     render(<LoginForm />);
     await userEvent.type(screen.getByLabelText(/email/i), "test@example.com");
     await userEvent.type(screen.getByLabelText(/password/i), "password123");
-    await userEvent.click(screen.getByRole("button", { name: /login/i }));
+    await userEvent.click(screen.getByRole("button", { name: /log in/i }));
 
     await waitFor(() => {
       expect(mockSignIn).toHaveBeenCalledWith({
@@ -64,7 +64,7 @@ describe("LoginForm", () => {
 
     await userEvent.type(screen.getByLabelText(/email/i), "test@example.com");
     await userEvent.type(screen.getByLabelText(/password/i), "password123");
-    await userEvent.click(screen.getByRole("button", { name: /login/i }));
+    await userEvent.click(screen.getByRole("button", { name: /log in/i }));
 
     await waitFor(() => {
       expect(mockPush).toHaveBeenCalledWith("/account");
@@ -77,7 +77,7 @@ describe("LoginForm", () => {
 
     await userEvent.type(screen.getByLabelText(/email/i), "wrong@example.com");
     await userEvent.type(screen.getByLabelText(/password/i), "wrongpass");
-    await userEvent.click(screen.getByRole("button", { name: /login/i }));
+    await userEvent.click(screen.getByRole("button", { name: /log in/i }));
 
     await waitFor(() => {
       expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
@@ -92,7 +92,7 @@ describe("LoginForm", () => {
 
     await userEvent.type(screen.getByLabelText(/email/i), "test@example.com");
     await userEvent.type(screen.getByLabelText(/password/i), "password123");
-    await userEvent.click(screen.getByRole("button", { name: /login/i }));
+    await userEvent.click(screen.getByRole("button", { name: /log in/i }));
 
     expect(screen.getByRole("button", { name: /logging in/i })).toBeDisabled();
   });
