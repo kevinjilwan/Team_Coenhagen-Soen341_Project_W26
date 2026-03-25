@@ -11,6 +11,13 @@ jest.mock("@/lib/supabase/client", () => ({
   }),
 }));
 
+// Mock Next.js router
+const mockPush = jest.fn();
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({ push: mockPush }),
+  usePathname: () => "/account",
+}));
+
 const defaultProps = {
   userId: "123123123",
   initialProfile: { full_name: "Adam Sandler", phone: "514-100-2000" },
@@ -102,10 +109,10 @@ describe("AccountClient", () => {
   // Test that the lactose intolerant checkbox is toggled when clicked
   it("toggles lactose intolerant checkbox", async () => {
     render(<AccountClient {...defaultProps} />);
-    const checkbox = screen.getByLabelText(/lactose intolerant/i);
-    expect(checkbox).not.toBeChecked();
-    await userEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
+    const button = screen.getByRole("button", { name: /lactose intolerant/i });
+    expect(button).toHaveAttribute("aria-pressed", "false");
+    await userEvent.click(button);
+    expect(button).toHaveAttribute("aria-pressed", "true");
   });
 
   // Test that the preferences are saved correctly
