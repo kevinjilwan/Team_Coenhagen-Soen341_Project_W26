@@ -18,8 +18,10 @@ function normalizeStringArray(v: unknown): string[] {
   if (!v) return [];
   if (Array.isArray(v)) return v.map(String);
   if (typeof v === "string") {
-    // supports text column: split lines
-    return v.split("\n").map((s) => s.trim()).filter(Boolean);
+    return v
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
   }
   return [];
 }
@@ -149,33 +151,41 @@ export default function EditRecipeClient({ id }: { id: string }) {
     }
   }
 
-  if (loading) return <div className="p-4">Loading recipe...</div>;
+  if (loading) {
+    return (
+      <div className="px-10 py-10">
+        <p className="text-sm text-[#6b6450]">Loading recipe...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-4 max-w-2xl">
+    <div className="px-10 py-10">
       {confirmOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center">
           <div
-            className="absolute inset-0 bg-black/40"
+            className="absolute inset-0 bg-black/30"
             onClick={() => setConfirmOpen(false)}
           />
-          <div className="relative z-10 w-full max-w-sm rounded-lg border bg-white p-6 shadow-lg">
-            <h2 className="text-lg font-semibold text-gray-900">Delete recipe?</h2>
-            <p className="mt-2 text-sm text-gray-600">
-              "<span className="font-medium font-bold">{title || "This recipe"}"</span> will be
-              permanently deleted. Are you sure you want to do this?
+          <div className="relative z-10 w-full max-w-md rounded-lg border border-[#9a7a2e]/20 bg-[#f2edda] p-6 shadow-xl">
+            <h2 className="font-serif text-2xl font-normal text-[#151e2d]">
+              Delete recipe?
+            </h2>
+            <p className="mt-3 text-sm text-[#6b6450] leading-relaxed">
+              “<span className="font-medium text-[#151e2d]">{title || "This recipe"}</span>”
+              will be permanently deleted. Are you sure you want to do this?
             </p>
-            <div className="mt-5 flex justify-end gap-3">
+            <div className="mt-6 flex justify-end gap-3">
               <button
                 type="button"
-                className="rounded border px-4 py-2 text-sm text-gray-900 hover:bg-gray-50"
+                className="rounded-md border border-[#9a7a2e]/20 px-4 py-2 text-sm text-[#151e2d] hover:bg-[#ede6cf] transition-colors"
                 onClick={() => setConfirmOpen(false)}
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="rounded bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700 disabled:opacity-50"
+                className="rounded-md border border-red-300 px-4 py-2 text-sm text-red-700 hover:bg-red-50 transition-colors"
                 onClick={onDeleteConfirmed}
               >
                 Delete
@@ -185,67 +195,77 @@ export default function EditRecipeClient({ id }: { id: string }) {
         </div>
       )}
 
-      <h1 className="text-2xl font-bold mb-4">Edit Recipe</h1>
-
       {error && (
-        <div className="mb-3 rounded border p-3 text-sm">
+        <div className="mb-6 max-w-3xl rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
         </div>
       )}
 
-      <form onSubmit={onSave} className="flex flex-col gap-4">
-        <div>
-          <label className="text-sm font-medium">Title</label>
+      <form onSubmit={onSave} className="max-w-3xl space-y-8">
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#151e2d]">
+            Title
+          </label>
           <input
-            className="w-full mt-1 rounded border p-2 bg-transparent"
+            className="w-full rounded-md border border-[#9a7a2e]/20 bg-[#f2edda] px-4 py-3 text-sm text-[#151e2d] outline-none focus:border-[#9a7a2e]"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
         </div>
 
-        <div>
-          <label className="text-sm font-medium">Description</label>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#151e2d]">
+            Description
+          </label>
           <input
-            className="w-full mt-1 rounded border p-2 bg-transparent"
+            className="w-full rounded-md border border-[#9a7a2e]/20 bg-[#f2edda] px-4 py-3 text-sm text-[#151e2d] outline-none focus:border-[#9a7a2e]"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
 
-        <div>
-          <label className="text-sm font-medium">Ingredients (one per line)</label>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#151e2d]">
+            Ingredients (one per line)
+          </label>
           <textarea
-            className="w-full mt-1 min-h-[120px] rounded border p-2 bg-transparent"
+            className="w-full min-h-[140px] rounded-md border border-[#9a7a2e]/20 bg-[#f2edda] px-4 py-3 text-sm text-[#151e2d] outline-none focus:border-[#9a7a2e]"
             value={ingredientsText}
             onChange={(e) => setIngredientsText(e.target.value)}
           />
         </div>
 
-        <div>
-          <label className="text-sm font-medium">Preparation steps (one per line)</label>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#151e2d]">
+            Preparation steps (one per line)
+          </label>
           <textarea
-            className="w-full mt-1 min-h-[140px] rounded border p-2 bg-transparent"
+            className="w-full min-h-[160px] rounded-md border border-[#9a7a2e]/20 bg-[#f2edda] px-4 py-3 text-sm text-[#151e2d] outline-none focus:border-[#9a7a2e]"
             value={stepsText}
             onChange={(e) => setStepsText(e.target.value)}
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label className="text-sm font-medium">Preparation time (minutes)</label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-[#151e2d]">
+              Preparation time (minutes)
+            </label>
             <input
-              className="w-full mt-1 rounded border p-2 bg-transparent"
+              className="w-full rounded-md border border-[#9a7a2e]/20 bg-[#f2edda] px-4 py-3 text-sm text-[#151e2d] outline-none focus:border-[#9a7a2e]"
               value={prepTime}
               onChange={(e) => setPrepTime(e.target.value)}
               inputMode="numeric"
             />
           </div>
 
-          <div>
-            <label className="text-sm font-medium">Cost</label>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-[#151e2d]">
+              Cost
+            </label>
             <input
-              className="w-full mt-1 rounded border p-2 bg-transparent"
+              className="w-full rounded-md border border-[#9a7a2e]/20 bg-[#f2edda] px-4 py-3 text-sm text-[#151e2d] outline-none focus:border-[#9a7a2e]"
               value={cost}
               onChange={(e) => setCost(e.target.value)}
               inputMode="decimal"
@@ -253,19 +273,21 @@ export default function EditRecipeClient({ id }: { id: string }) {
           </div>
         </div>
 
-        <div>
-          <label className="text-sm font-medium">Dietary tags (comma-separated)</label>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#151e2d]">
+            Dietary tags (comma-separated)
+          </label>
           <input
-            className="w-full mt-1 rounded border p-2 bg-transparent"
+            className="w-full rounded-md border border-[#9a7a2e]/20 bg-[#f2edda] px-4 py-3 text-sm text-[#151e2d] outline-none focus:border-[#9a7a2e]"
             value={tagsText}
             onChange={(e) => setTagsText(e.target.value)}
             placeholder="vegan, gluten-free, halal..."
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-3 pt-2">
           <button
-            className="rounded border px-4 py-2"
+            className="text-sm font-medium px-5 py-2.5 rounded-md bg-[#151e2d] text-[#f2edda] hover:opacity-80 transition-opacity disabled:opacity-50"
             type="submit"
             disabled={saving}
           >
@@ -273,7 +295,7 @@ export default function EditRecipeClient({ id }: { id: string }) {
           </button>
 
           <button
-            className="rounded border px-4 py-2"
+            className="text-sm font-medium px-5 py-2.5 rounded-md border border-[#9a7a2e]/20 text-[#151e2d] hover:bg-[#ede6cf] transition-colors"
             type="button"
             onClick={() => router.push("/recipes")}
           >
@@ -281,7 +303,7 @@ export default function EditRecipeClient({ id }: { id: string }) {
           </button>
 
           <button
-            className="rounded border px-4 py-2"
+            className="text-sm font-medium px-5 py-2.5 rounded-md border border-red-300 text-red-700 hover:bg-red-50 transition-colors"
             type="button"
             onClick={() => setConfirmOpen(true)}
           >
