@@ -38,11 +38,15 @@ export default function RecommendedRecipesClient() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [savingRecipeKey, setSavingRecipeKey] = useState<string | null>(null);
+  const [savedRecipeKeys, setSavedRecipeKeys] = useState<string[]>([]);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitted(false);
     setError(null);
+    setSaveError(null);
 
     const ingredients = parseIngredients(ingredientsText);
     const time = Number(availableTime);
@@ -80,6 +84,7 @@ export default function RecommendedRecipesClient() {
 
       setPrimaryResults(data.primary ?? []);
       setRelatedResults(data.related ?? []);
+      setSavedRecipeKeys([]);
       setSubmitted(true);
     } catch (requestError) {
       const message =
@@ -91,6 +96,46 @@ export default function RecommendedRecipesClient() {
       setError(message);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleSaveRecipe(recipe: RecommendedRecipe, recipeKey: string) {
+    setSavingRecipeKey(recipeKey);
+    setSaveError(null);
+
+    try {
+      const response = await fetch("/api/recipes", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          title: recipe.title ?? "Untitled recipe",
+          description: recipe.description ?? null,
+          ingredients: recipe.ingredients ?? [],
+          preparation_steps: recipe.preparation_steps ?? [],
+          preparation_time: recipe.preparation_time ?? null,
+          cost: recipe.cost ?? null,
+          difficulty: recipe.difficulty ?? null,
+          dietary_tags: recipe.dietary_tags ?? [],
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Failed to save recipe.");
+      }
+
+      setSavedRecipeKeys((current) =>
+        current.includes(recipeKey) ? current : [...current, recipeKey]
+      );
+    } catch (saveRequestError) {
+      const message =
+        saveRequestError instanceof Error
+          ? saveRequestError.message
+          : "Failed to save recipe.";
+      setSaveError(message);
+    } finally {
+      setSavingRecipeKey(null);
     }
   }
 
@@ -131,7 +176,7 @@ export default function RecommendedRecipesClient() {
                 className={`${inputClass} min-h-[140px] resize-y`}
                 value={ingredientsText}
                 onChange={(event) => setIngredientsText(event.target.value)}
-                placeholder="rice, eggs, spinach, garlic"
+                placeholder="ex: rice, eggs, spinach, garlic"
               />
               <p className="text-xs text-[#6b6450]/80">
                 Separate ingredients with commas.
@@ -149,7 +194,7 @@ export default function RecommendedRecipesClient() {
                 className={inputClass}
                 value={availableTime}
                 onChange={(event) => setAvailableTime(event.target.value)}
-                placeholder="30"
+                placeholder="ex: 30"
               />
               <p className="text-xs text-[#6b6450]/80">Enter the time in minutes.</p>
             </div>
@@ -187,9 +232,13 @@ export default function RecommendedRecipesClient() {
             )}
           </div>
 
+          {saveError && (
+            <p className="mb-4 text-sm text-red-600">{saveError}</p>
+          )}
+
           {!submitted && !loading && !error && (
             <div className="rounded-2xl border border-dashed border-[#9a7a2e]/30 px-6 py-10 text-sm text-[#6b6450]">
-              Submit the form to see recommendations from the API here.
+              Submit the form to see recommendations here.
             </div>
           )}
 
@@ -209,6 +258,10 @@ export default function RecommendedRecipesClient() {
                       <RecipeCard
                         key={recipe.id ?? `${recipe.title ?? "primary"}-${index}`}
                         recipe={recipe}
+                        recipeKey={recipe.id ?? `${recipe.title ?? "primary"}-${index}`}
+                        onSave={handleSaveRecipe}
+                        isSaving={savingRecipeKey === (recipe.id ?? `${recipe.title ?? "primary"}-${index}`)}
+                        isSaved={savedRecipeKeys.includes(recipe.id ?? `${recipe.title ?? "primary"}-${index}`)}
                       />
                     ))}
                   </ul>
@@ -223,6 +276,10 @@ export default function RecommendedRecipesClient() {
                       <RecipeCard
                         key={recipe.id ?? `${recipe.title ?? "related"}-${index}`}
                         recipe={recipe}
+                        recipeKey={recipe.id ?? `${recipe.title ?? "related"}-${index}`}
+                        onSave={handleSaveRecipe}
+                        isSaving={savingRecipeKey === (recipe.id ?? `${recipe.title ?? "related"}-${index}`)}
+                        isSaved={savedRecipeKeys.includes(recipe.id ?? `${recipe.title ?? "related"}-${index}`)}
                       />
                     ))}
                   </ul>
@@ -241,12 +298,38 @@ export default function RecommendedRecipesClient() {
   );
 }
 
-function RecipeCard({ recipe }: { recipe: RecommendedRecipe }) {
+function RecipeCard({
+  recipe,
+  recipeKey,
+  onSave,
+  isSaving,
+  isSaved,
+}: {
+  recipe: RecommendedRecipe;
+  recipeKey: string;
+  onSave: (recipe: RecommendedRecipe, recipeKey: string) => Promise<void>;
+  isSaving: boolean;
+  isSaved: boolean;
+}) {
   return (
     <li className="rounded-2xl border border-[#9a7a2e]/20 bg-[#f7f2e4] px-6 py-5">
-      <h4 className="font-serif text-2xl text-[#151e2d]">
-        {recipe.title ?? "Untitled recipe"}
-      </h4>
+      <div className="flex items-start justify-between gap-4">
+        <h4 className="font-serif text-2xl text-[#151e2d]">
+          {recipe.title ?? "Untitled recipe"}
+        </h4>
+        <button
+          type="button"
+          onClick={() => onSave(recipe, recipeKey)}
+          disabled={isSaving || isSaved}
+          className={`shrink-0 text-sm font-medium px-4 py-2 rounded-md transition-colors ${
+            isSaved
+              ? "bg-[#9a7a2e] text-[#f2edda] cursor-default"
+              : "bg-[#151e2d] text-[#f2edda] hover:opacity-80 disabled:opacity-50"
+          }`}
+        >
+          {isSaved ? "Saved" : isSaving ? "Saving..." : "Add to My Recipes"}
+        </button>
+      </div>
 
       {recipe.description && (
         <p className="mt-2 text-sm text-[#6b6450] leading-relaxed">
