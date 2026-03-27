@@ -17,6 +17,7 @@ export default function SiteNavbar() {
   const isRecipes =
     pathname === "/recipes" ||
     pathname === "/recipes/new" ||
+    pathname === "/recipes/recommended" ||
     pathname.startsWith("/recipes/");
   const isMealPlans =
     pathname === "/meal-plans" ||
@@ -94,6 +95,12 @@ export default function SiteNavbar() {
                 className="block px-4 py-2 text-base text-[#151e2d] hover:text-[#9a7a2e] transition-colors"
               >
                 My Recipes
+              </Link>
+              <Link
+                href="/recipes/recommended"
+                className="block px-4 py-2 text-base text-[#151e2d] hover:text-[#9a7a2e] transition-colors"
+              >
+                Recommended Recipes
               </Link>
             </div>
           )}
