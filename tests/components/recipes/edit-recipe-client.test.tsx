@@ -61,6 +61,28 @@ describe("EditRecipeClient", () => {
     });
   });
 
+  // Verify the recipe is deleted and the user is redirected to their collection
+  it("sends a DELETE request and redirects to /recipes after deletion", async () => {
+    (global.fetch as jest.Mock)
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ recipe: mockRecipe }) })
+      .mockResolvedValueOnce({ ok: true, json: async () => ({}) });
+
+    render(<EditRecipeClient id="1234567890" />);
+
+    await screen.findByDisplayValue("Classic Sushi Roll");
+    await userEvent.click(screen.getByRole("button", { name: /delete recipe/i }));
+    await userEvent.click(screen.getByRole("button", { name: /^delete$/i }));
+
+    await waitFor(() => {
+      const [url, options] = (global.fetch as jest.Mock).mock.calls[1];
+      const body = JSON.parse(options.body);
+      expect(url).toBe("/api/recipes");
+      expect(options.method).toBe("DELETE");
+      expect(body.id).toBe("1234567890");
+      expect(mockPush).toHaveBeenCalledWith("/recipes");
+    });
+  });
+
   it("shows an error message when saving fails", async () => {
     (global.fetch as jest.Mock)
       .mockResolvedValueOnce({ ok: true, json: async () => ({ recipe: mockRecipe }) })
