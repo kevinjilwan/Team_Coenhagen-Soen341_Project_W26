@@ -56,4 +56,32 @@ describe("CreateWeeklyMealPlanClient", () => {
       expect(mockRefresh).toHaveBeenCalled();
     });
   });
+
+  it("shows the duplicate-week error when create returns 409, stays on the page, and Cancel navigates to meal plans", async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 409,
+      json: async () => ({
+        error: "You already have a weekly meal plan for that week.",
+      }),
+    });
+
+    const { container } = render(<CreateWeeklyMealPlanClient />);
+
+    await userEvent.type(screen.getByPlaceholderText("Exam Week Plan"), "Duplicate Week");
+    const dateInput = container.querySelector('input[type="date"]') as HTMLInputElement;
+    fireEvent.change(dateInput, { target: { value: "2026-04-13" } });
+
+    await userEvent.click(screen.getByRole("button", { name: /create weekly meal plan/i }));
+
+    expect(
+      await screen.findByText(/already have a weekly meal plan for that week/i)
+    ).toBeInTheDocument();
+    expect(mockPush).not.toHaveBeenCalled();
+    expect(mockRefresh).not.toHaveBeenCalled();
+
+    await userEvent.click(screen.getByRole("button", { name: /^cancel$/i }));
+
+    expect(mockPush).toHaveBeenCalledWith("/meal-plans");
+  });
 });
