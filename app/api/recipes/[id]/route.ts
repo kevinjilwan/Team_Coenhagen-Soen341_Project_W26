@@ -46,7 +46,8 @@ export async function PATCH(req: Request, { params }: Ctx) {
     ingredients: body.ingredients ?? null,                 // jsonb array
     preparation_steps: body.preparation_steps ?? null,     // jsonb array
     preparation_time: body.preparation_time ?? null,       // integer
-    cost: body.cost ?? null,                               // numeric
+    cost: body.cost ?? null,           
+    difficulty: body.difficulty ?? null,                   // string
     dietary_tags: body.dietary_tags ?? null,               // jsonb array
   };
 

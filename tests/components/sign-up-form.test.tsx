@@ -100,6 +100,6 @@ describe("SignUpForm", () => {
     await userEvent.type(screen.getByLabelText(/repeat password/i), "password123");
     await userEvent.click(screen.getByRole("button", { name: /sign up/i }));
 
-    expect(screen.getByRole("button", { name: /creating an account/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /creating account/i })).toBeDisabled();
   });
 });

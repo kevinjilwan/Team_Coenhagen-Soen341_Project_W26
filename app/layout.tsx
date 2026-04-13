@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Marcellus } from "next/font/google";
+import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import SiteHeader from "@/components/ui/site-Header";
-import AppShell from "@/components/ui/AppShell";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -15,7 +13,11 @@ export const metadata: Metadata = {
   description: "A Meal Planner",
 };
 
-const font = Marcellus({ subsets: ["latin"], weight: "400" });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  display: "swap",
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -24,21 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${font.className} antialiased`}>
+      <body className={`${geistSans.className} antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen bg-gradient-to-b from-stone-200 to-amber-100 flex flex-col">
-            <SiteHeader />
-
-            <AppShell>
-              <main className="flex-1">{children}</main>
-            </AppShell>
-
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>

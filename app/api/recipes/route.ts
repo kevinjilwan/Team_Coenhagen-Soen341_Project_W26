@@ -1,6 +1,34 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
+export async function GET() {
+  try {
+    const supabase = await createClient();
+
+    const { data: authData, error: authErr } = await supabase.auth.getUser();
+    if (authErr || !authData.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { data, error } = await supabase
+      .from("recipes")
+      .select("id, title")
+      .eq("user_id", authData.user.id)
+      .order("title", { ascending: true });
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ recipes: data ?? [] }, { status: 200 });
+  } catch {
+    return NextResponse.json(
+      { error: "Unexpected server error" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(req: Request) {
   const supabase = await createClient();
 
@@ -11,7 +39,6 @@ export async function POST(req: Request) {
 
   const body = await req.json();
 
-  // Minimal validation
   if (!body?.title || typeof body.title !== "string") {
     return NextResponse.json({ error: "Title is required" }, { status: 400 });
   }
@@ -27,7 +54,11 @@ export async function POST(req: Request) {
     dietary_tags: body.dietary_tags ?? null,
   };
 
-  const { data, error } = await supabase.from("recipes").insert(payload).select("id").single();
+  const { data, error } = await supabase
+    .from("recipes")
+    .insert(payload)
+    .select("id")
+    .single();
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
@@ -36,7 +67,6 @@ export async function POST(req: Request) {
   return NextResponse.json({ id: data.id }, { status: 201 });
 }
 
-// DELETE /api/recipes with JSON { id }
 export async function DELETE(req: Request) {
   const supabase = await createClient();
 
