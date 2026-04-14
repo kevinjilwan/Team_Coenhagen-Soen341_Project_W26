@@ -28,7 +28,6 @@ export default function AccountClient(props: {
 }) {
   const supabase = useMemo(() => createClient(), []);
   const router = useRouter();
-  const [recipesOpen, setRecipesOpen] = useState(false);
 
   const [fullName, setFullName] = useState(props.initialProfile.full_name);
   const [phone, setPhone] = useState(props.initialProfile.phone);
