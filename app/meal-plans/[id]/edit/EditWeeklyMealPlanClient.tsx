@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 import SiteNavbar from "@/components/site-navbar";
 
 type Recipe = {
@@ -71,10 +68,6 @@ function normalizeRecipe(
 }
 
 export default function EditWeeklyMealPlanClient({ id }: { id: string }) {
-  const router = useRouter();
-
-  const [recipesOpen, setRecipesOpen] = useState(false);
-  const [mealPlansOpen, setMealPlansOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const [savingMeta, setSavingMeta] = useState(false);
   const [busySlot, setBusySlot] = useState<string | null>(null);
@@ -86,13 +79,6 @@ export default function EditWeeklyMealPlanClient({ id }: { id: string }) {
 
   const [title, setTitle] = useState("");
   const [weekStartDate, setWeekStartDate] = useState("");
-
-  async function handleLogout() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
-  }
 
   async function loadPage() {
     try {
@@ -127,6 +113,7 @@ export default function EditWeeklyMealPlanClient({ id }: { id: string }) {
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     loadPage();
   }, [id]);
