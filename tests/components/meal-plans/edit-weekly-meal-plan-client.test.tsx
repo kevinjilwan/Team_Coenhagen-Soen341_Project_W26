@@ -2,6 +2,11 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import EditWeeklyMealPlanClient from "@/app/meal-plans/[id]/edit/EditWeeklyMealPlanClient";
 
+jest.mock("@/components/site-navbar", () => ({
+  __esModule: true,
+  default: () => null,
+}));
+
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: jest.fn(), refresh: jest.fn() }),
   usePathname: () => "/meal-plans/exam-week/edit",

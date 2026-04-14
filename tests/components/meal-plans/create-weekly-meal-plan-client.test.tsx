@@ -2,6 +2,11 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CreateWeeklyMealPlanClient from "@/app/meal-plans/new/CreateWeeklyMealPlanClient";
 
+jest.mock("@/components/site-navbar", () => ({
+  __esModule: true,
+  default: () => null,
+}));
+
 const mockPush = jest.fn();
 const mockRefresh = jest.fn();
 jest.mock("next/navigation", () => ({

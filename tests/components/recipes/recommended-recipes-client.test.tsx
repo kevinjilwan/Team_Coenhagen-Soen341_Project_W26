@@ -2,6 +2,11 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import RecommendedRecipesClient from "@/app/recipes/recommended/RecommendedRecipesClient";
 
+jest.mock("@/components/site-navbar", () => ({
+  __esModule: true,
+  default: () => null,
+}));
+
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: jest.fn(), refresh: jest.fn() }),
   usePathname: () => "/recipes/recommended",
