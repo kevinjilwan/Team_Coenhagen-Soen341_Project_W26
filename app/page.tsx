@@ -39,7 +39,6 @@ export default function HomePage() {
         </div>
       </section>
 
-
       {/* DIVIDER */}
       <hr className="mx-10 border-[#9a7a2e]/20" />
 
