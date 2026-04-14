@@ -3,7 +3,6 @@
 import SiteNavbar from "@/components/site-navbar";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -13,13 +12,6 @@ function lines(text: string) {
 
 export default function CreateRecipeClient() {
   const router = useRouter();
-  async function handleLogout() {
-  const supabase = createClient();
-  await supabase.auth.signOut();
-  router.push("/");
-  router.refresh();
-}
-  const [recipesOpen, setRecipesOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [prepTime, setPrepTime] = useState("");
