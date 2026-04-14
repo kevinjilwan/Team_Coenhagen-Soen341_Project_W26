@@ -28,7 +28,7 @@ export default function HomePage() {
         </p>
         <div className="flex items-center gap-5">
           <Link href="/auth/sign-up" className="text-sm font-medium px-5 py-2.5 rounded-md bg-[#151e2d] text-[#f2edda] hover:opacity-80 transition-opacity">
-            Get started free
+            Get started
           </Link>
           <Link href="/auth/login" className="text-sm text-[#6b6450] hover:text-[#151e2d] transition-colors flex items-center gap-1">
             Log in
