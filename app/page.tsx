@@ -14,7 +14,7 @@ export default function HomePage() {
       <SiteNavbar/>
 
       {/* HERO */}
-      <section className="pt-64 pb-20 px-10 max-w-3xl ml-[700px]">
+      <section className="pt-64 pb-20 px-10 max-w-3xl ml-[1050px]">
         <p className="flex items-center gap-2 text-xs tracking-widest uppercase text-[#9a7a2e] mb-6">
           <span className="inline-block w-5 h-px bg-[#9a7a2e]" />
           Meal planning for students
