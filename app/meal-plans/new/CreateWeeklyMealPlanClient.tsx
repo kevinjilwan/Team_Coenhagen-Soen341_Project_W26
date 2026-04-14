@@ -2,25 +2,14 @@
 
 import SiteNavbar from "@/components/site-navbar";
 import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 export default function CreateWeeklyMealPlanClient() {
   const router = useRouter();
-  const [recipesOpen, setRecipesOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [weekStartDate, setWeekStartDate] = useState("");
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
-
-  async function handleLogout() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
-  }
 
   async function onCreate() {
     setSaving(true);

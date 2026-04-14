@@ -3,6 +3,11 @@ import userEvent from "@testing-library/user-event";
 import MealPlansListClient from "@/app/meal-plans/MealPlansListClient";
 import WeeklyMealPlanViewClient from "@/app/meal-plans/[id]/WeeklyMealPlanViewClient";
 
+jest.mock("@/components/site-navbar", () => ({
+  __esModule: true,
+  default: () => null,
+}));
+
 const mockPush = jest.fn();
 const mockRefresh = jest.fn();
 

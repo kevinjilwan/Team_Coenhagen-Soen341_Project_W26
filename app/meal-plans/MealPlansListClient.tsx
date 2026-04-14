@@ -2,10 +2,7 @@
 
 import SiteNavbar from "@/components/site-navbar";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 type WeeklyMealPlan = {
   id: string;
@@ -24,19 +21,9 @@ function formatWeek(dateString: string) {
 }
 
 export default function MealPlansListClient() {
-  const router = useRouter();
-  const [recipesOpen, setRecipesOpen] = useState(false);
-  const [mealPlansOpen, setMealPlansOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const [plans, setPlans] = useState<WeeklyMealPlan[]>([]);
   const [error, setError] = useState<string | null>(null);
-
-  async function handleLogout() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
-  }
 
   useEffect(() => {
     (async () => {
