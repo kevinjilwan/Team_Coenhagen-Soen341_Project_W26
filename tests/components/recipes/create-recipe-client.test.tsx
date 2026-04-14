@@ -2,6 +2,11 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CreateRecipeClient from "@/app/recipes/new/CreateRecipeClient";
 
+jest.mock("@/components/site-navbar", () => ({
+  __esModule: true,
+  default: () => null,
+}));
+
 // Mock Next.js router and pathname (both used by SiteNavbar and CreateRecipeClient)
 const mockPush = jest.fn();
 const mockRefresh = jest.fn();

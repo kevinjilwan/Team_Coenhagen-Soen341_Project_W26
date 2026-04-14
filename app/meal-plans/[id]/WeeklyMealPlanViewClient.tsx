@@ -2,10 +2,8 @@
 
 import SiteNavbar from "@/components/site-navbar";
 import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 type RecipeSummary = {
   id: string;
@@ -71,21 +69,12 @@ function normalizeRecipe(recipe: WeeklyMealPlanItem["recipes"]): RecipeSummary |
 
 export default function WeeklyMealPlanViewClient({ id }: { id: string }) {
   const router = useRouter();
-  const [recipesOpen, setRecipesOpen] = useState(false);
-  const [mealPlansOpen, setMealPlansOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [plan, setPlan] = useState<WeeklyMealPlan | null>(null);
   const [items, setItems] = useState<WeeklyMealPlanItem[]>([]);
   const [error, setError] = useState<string | null>(null);
-
-  async function handleLogout() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
-  }
 
   useEffect(() => {
     (async () => {

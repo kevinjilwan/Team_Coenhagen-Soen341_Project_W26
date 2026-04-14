@@ -2,6 +2,11 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import MealPlansListClient from "@/app/meal-plans/MealPlansListClient";
 import WeeklyMealPlanViewClient from "@/app/meal-plans/[id]/WeeklyMealPlanViewClient";
 
+jest.mock("@/components/site-navbar", () => ({
+  __esModule: true,
+  default: () => null,
+}));
+
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: jest.fn(), refresh: jest.fn() }),
   usePathname: () => "/meal-plans",
