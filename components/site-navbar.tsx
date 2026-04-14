@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ export default function SiteNavbar() {
   const router = useRouter();
   const [recipesOpen, setRecipesOpen] = useState(false);
   const [mealPlansOpen, setMealPlansOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const isHome = pathname === "/";
   const isAccount = pathname === "/account";
@@ -23,6 +24,27 @@ export default function SiteNavbar() {
     pathname === "/meal-plans" ||
     pathname === "/meal-plans/new" ||
     pathname.startsWith("/meal-plans/");
+
+useEffect(() => {
+  const supabase = createClient();
+
+  async function checkUser() {
+    const { data } = await supabase.auth.getUser();
+    setIsLoggedIn(!!data.user);
+  }
+
+  checkUser();
+
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange((_event, session) => {
+    setIsLoggedIn(!!session?.user);
+  });
+
+  return () => {
+    subscription.unsubscribe();
+  };
+}, []);
 
   async function handleLogout() {
     const supabase = createClient();
@@ -147,13 +169,22 @@ export default function SiteNavbar() {
       </div>
 
       <div className="flex items-center gap-6">
-        <button
-          onClick={handleLogout}
-          className="text-base text-[#6b6450] hover:text-[#151e2d] transition-colors tracking-wide"
-        >
-          Log out
-        </button>
-      </div>
+  {isLoggedIn ? (
+    <button
+      onClick={handleLogout}
+      className="text-base text-[#6b6450] hover:text-[#151e2d] transition-colors tracking-wide"
+    >
+      Log out
+    </button>
+  ) : (
+    <Link
+      href="/login"
+      className="text-base text-[#6b6450] hover:text-[#151e2d] transition-colors tracking-wide"
+    >
+      Log in
+    </Link>
+  )}
+</div>
     </nav>
   );
 }
