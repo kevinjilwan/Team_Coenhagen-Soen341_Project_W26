@@ -2,6 +2,11 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AccountClient from "@/app/account/AccountClient";
 
+jest.mock("@/components/site-navbar", () => ({
+  __esModule: true,
+  default: () => null,
+}));
+
 const mockUpsert = jest.fn();
 jest.mock("@/lib/supabase/client", () => ({
   createClient: () => ({
