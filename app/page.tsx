@@ -14,7 +14,7 @@ export default function HomePage() {
       <SiteNavbar/>
 
       {/* HERO */}
-      <section className="pt-64 pb-20 px-10 max-w-3xl">
+      <section className="pt-64 pb-20 px-10 max-w-3xl ml-[1050px]">
         <p className="flex items-center gap-2 text-xs tracking-widest uppercase text-[#9a7a2e] mb-6">
           <span className="inline-block w-5 h-px bg-[#9a7a2e]" />
           Meal planning for students
@@ -28,7 +28,7 @@ export default function HomePage() {
         </p>
         <div className="flex items-center gap-5">
           <Link href="/auth/sign-up" className="text-sm font-medium px-5 py-2.5 rounded-md bg-[#151e2d] text-[#f2edda] hover:opacity-80 transition-opacity">
-            Get started free
+            Get started
           </Link>
           <Link href="/auth/login" className="text-sm text-[#6b6450] hover:text-[#151e2d] transition-colors flex items-center gap-1">
             Log in
