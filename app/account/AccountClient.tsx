@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import SiteNavbar from "@/components/site-navbar";
 
