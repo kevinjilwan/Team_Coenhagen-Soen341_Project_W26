@@ -2,9 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import SiteNavbar from "@/components/site-navbar";
 
 type ProfileState = {
@@ -29,8 +26,6 @@ export default function AccountClient(props: {
   initialPreferences: PreferencesState;
 }) {
   const supabase = useMemo(() => createClient(), []);
-  const router = useRouter();
-  const [recipesOpen, setRecipesOpen] = useState(false);
 
   const [fullName, setFullName] = useState(props.initialProfile.full_name);
   const [phone, setPhone] = useState(props.initialProfile.phone);
@@ -48,11 +43,6 @@ export default function AccountClient(props: {
     setAllergies((prev) =>
       prev.includes(item) ? prev.filter((x) => x !== item) : [...prev, item]
     );
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/");
   };
 
   const saveInfo = async () => {
